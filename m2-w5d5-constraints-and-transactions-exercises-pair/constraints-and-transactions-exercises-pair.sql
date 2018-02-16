@@ -75,5 +75,11 @@ ROLLBACK
 -- meters for all countries where French is spoken by more than 20% of the 
 -- population.
 -- (7 rows affected)
+Start transaction
 
+update country
+set surfacearea = (surfacearea * 1609.344)
+WHERE code IN(Select countrycode from countrylanguage where language = 'French' AND percentage > 20)
 
+Rollback
+commit 
